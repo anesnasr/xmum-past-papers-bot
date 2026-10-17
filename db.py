@@ -26,3 +26,14 @@ def add_paper(course_code, year, file_id, user_id):
     )
     conn.commit()
     conn.close()
+
+def get_papers(course_code):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT year, file_id FROM papers WHERE course_code = ?",
+        (course_code,)
+    )
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
